@@ -1,0 +1,188 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{% include 'senadlake/partials/banner.html' %}
+
+<div class="col-md-12 mx-auto bodyx p-5">
+    <div class="col-12 mx-auto">
+        <div class="row">
+            <div class="col-3 mx-auto px-5 atxt0">
+                <h3 class="mb-2 atxt1d">Total {{ total }} Files</h3>
+                <table class="table table-success table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">file</th>
+                            <th scope="col">Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">.csv</th>
+                            <td>{{ csvcount }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">.json</th>
+                            <td>{{ jsoncount }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">.xlsx</th>
+                            <td>{{ xlsxcount }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">.pdf</th>
+                            <td>{{ pdfcount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-12 ">
+                    {% include 'loads/partials/sideMenu.html' %}
+                </div>
+                
+            </div>
+            
+
+            <div class="col-9 mx-auto ">
+
+                {% if csvFiles %}
+                    <h2 class="atxt1b">CSV Files</h2>
+                    {% for item in csvFiles %}
+                        <div class="card back mb-3">
+                            <div class="card-header">
+                                {{item.file_ext}}
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h5 class="card-title">{{item.file}}</h5>
+                                    </div>
+                                    <div class="col-3 mb-1">
+                                        <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
+                                    </div>
+                                </div>
+                                <h5 class="card-text">{{item.description}}</h5>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if jsonFiles %}
+                    <h2 class="atxt1b">JSON Files</h2>
+                    {% for item in jsonFiles %}
+                        <div class="card back mb-3">
+                            <div class="card-header">
+                                {{item.file_ext}}
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h5 class="card-title">{{item.file}}</h5>
+                                    </div>
+                                    <div class="col-3 mb-1">
+                                        <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
+                                    </div>
+                                </div>
+                                <h5 class="card-text">{{item.description}}</h5>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                {% if xlsxFiles %}
+                    <h2 class="atxt1b">XLSX Files</h2>
+                    {% for item in xlsxFiles %}
+                        <div class="card back mb-3">
+                            <div class="card-header">
+                                {{item.file_ext}}
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h5 class="card-title">{{item.file}}</h5>
+                                    </div>
+                                    <div class="col-3 mb-1">
+                                        <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
+                                    </div>
+                                </div>
+                                <p class="card-text">{{item.description}}</p>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                {% if pdfFiles %}
+                    <h2 class="atxt1b">PDF Files</h2>
+                    {% for item in pdfFiles %}
+                        <div class="card back mb-3">
+                            <div class="card-header">
+                                {{item.file_ext}}
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h5 class="card-title">{{item.file}}</h5>
+                                    </div>
+                                    <div class="col-3 mb-1">
+                                        <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
+                                    </div>
+                                </div>
+                                <p class="card-text">{{item.description}}</p>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

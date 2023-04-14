@@ -1,0 +1,72 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{% include 'senadlake/partials/banner.html' %}
+
+
+<div class="col-11 mx-auto mb-5">
+    <div class="col-11 mx-auto mt-4">
+
+        <h1>Privacidad de datos, seguridad de datos y protección de datos</h1>
+
+        <p>Los datos de una organización son uno de sus activos más valiosos y deben protegerse en consecuencia. Debido a que hay tantas formas en las que los datos de una organización podrían perderse o verse comprometidos, las organizaciones deben adoptar un enfoque multifacético para garantizar el bienestar de sus datos. Esto significa centrarse en tres áreas clave: protección de datos, seguridad de datos y privacidad de datos.</p>
+        <p>Aunque los términos a veces se usan indistintamente, existen varias diferencias clave entre la protección de datos, la seguridad de los datos y la privacidad de los datos. Aquí las definiciones:</p>
+
+    </div>
+
+    <div class="col-11 mx-auto mt-4">
+        <h4>Protección de Datos</h4>
+        <p>La protección de datos es el proceso de salvaguardar información importante contra corrupción, verse comprometida o pérdida.</p>
+        <p>La protección de datos se centra en la copia de seguridad y la recuperación, aunque hay varias herramientas de protección de datos disponibles. Por lo general, una organización designará a un oficial de protección de datos que es responsable de identificar los datos que deben protegerse y diseñar un conjunto de políticas para garantizar que los datos se puedan recuperar en caso de que se eliminen, sobrescriban o corrompan.</p>
+        <p>Además de garantizar que se haga una copia de seguridad de los datos de una organización, las políticas de protección de datos también protegen los datos de una manera que se alinea con los acuerdos de nivel de servicio de la organización, particularmente con respecto a los objetivos de punto de recuperación (RPO) y los objetivos de tiempo de recuperación (RTO).</p>
+        <p>El RPO es una métrica que hace referencia a la frecuencia con la que se crean las copias de seguridad. La frecuencia de la copia de seguridad determina cuántos datos podrían perderse potencialmente en un evento de pérdida de datos. Si una organización tiene un RPO de cuatro horas, entonces la organización podría perder hasta cuatro horas de datos porque todos los datos que se han creado desde la copia de seguridad más reciente podrían perderse.</p>
+        <p>El RTO es una métrica de cuánto tiempo llevará restaurar una copia de seguridad. Las organizaciones definen un RTO en función del tiempo que pueden permitirse para que los sistemas críticos no estén disponibles durante una operación de restauración.</p>
+    </div>
+
+    <div class="col-11 mx-auto mt-4">
+        <h4>Seguridad de datos</h4>
+        <p>La seguridad de los datos es la defensa de la información digital contra amenazas internas y externas, maliciosas y accidentales. Aunque la seguridad de los datos se centra específicamente en mantener los datos seguros, también incorpora la seguridad de la infraestructura —es difícil proteger adecuadamente los datos si la infraestructura subyacente es insegura.</p>
+        <p>Las organizaciones han adoptado innumerables medidas de seguridad y herramientas de seguridad de datos para garantizar la seguridad de los datos. Un ejemplo de ello es la autenticación multifactor (MFA), que utiliza al menos dos mecanismos diferentes para verificar la identidad de un usuario antes de otorgar acceso a los datos. Por ejemplo, un sistema MFA puede usar un nombre de usuario y una contraseña tradicionales combinados con un código que se envía al teléfono inteligente del usuario a través de un mensaje de texto.</p>
+    </div>
+  
+    <div class="col-11 mx-auto mt-4">
+        <h4>Privacidad de datos</h4>
+        <p>La privacidad de los datos, también llamada privacidad de la información, es cuando una organización o individuo debe determinar qué datos en un sistema informático se pueden compartir con terceros</p>
+        <p>Hay dos aspectos principales de la privacidad de los datos. El primero es el control de acceso. Una gran parte de garantizar la privacidad de los datos es determinar quién debería tener acceso autorizado a los datos y quién no.</p>
+        <p>El segundo aspecto de la privacidad de los datos implica la puesta en marcha de mecanismos que evitarán el acceso no autorizado a los datos. El cifrado de datos evita que los datos sean leídos por cualquier persona que no tenga acceso autorizado. También hay varias funciones de prevención de pérdida de datos (DLP) que están diseñadas para evitar el acceso no autorizado, lo que garantiza la privacidad de los datos. Tal mecanismo podría usarse para evitar que un usuario reenvíe un mensaje de correo electrónico que contenga información confidencial.</p>
+    </div>
+
+    <div class="col-11 mx-auto mt-4">
+        <h4>Diferencias clave</h4>
+        <p>Aunque existe un grado de superposición entre la protección de datos, la seguridad de los datos y la privacidad de los datos, existen diferencias clave entre los tres.</p>
+        <h6>Protección de datos frente a seguridad de datos</h6>
+        <p>La protección de datos es muy diferente a la seguridad de los datos. La seguridad está diseñada para frustrar un ataque malintencionado contra los datos de una organización y otros recursos de TI, mientras que la protección de datos está diseñada para garantizar que los datos se puedan restaurar si es necesario.</p>
+        <p>La seguridad generalmente se implementa a través de una estrategia de defensa en profundidad, lo que significa que si un atacante viola una de las defensas de la organización, existen otras barreras para evitar el acceso a los datos. La protección de datos se puede considerar como la última línea de defensa en esta estrategia. Si un ataque de ransomware encriptara con éxito los datos de una organización, entonces se puede usar una aplicación de respaldo para recuperarse del ataque y recuperar todos los datos de la organización.</p>
+        <h6>Seguridad de los datos vs. privacidad de los datos</h6>
+        <p>Existe un alto grado de superposición entre la privacidad y la seguridad de los datos. Por ejemplo, el cifrado ayuda a garantizar la privacidad de los datos, pero también podría ser una herramienta de seguridad de los datos.</p>
+        <p>La principal diferencia entre la seguridad de los datos y la privacidad de los datos es que la privacidad consiste en garantizar que solo aquellos que están autorizados a acceder a los datos puedan hacerlo. La seguridad de los datos se trata más de protegerse contra amenazas maliciosas. Si los datos están encriptados, esos datos son privados, pero no necesariamente seguros. El cifrado por sí solo no es suficiente para evitar que un atacante elimine los datos o utilice un algoritmo de cifrado diferente para hacer que los datos sean ilegibles.</p>
+        <h6>Privacidad de datos vs. protección de datos</h6>
+        <p>La privacidad y la protección de datos son dos cosas muy diferentes. La privacidad de los datos se trata de proteger los datos contra el acceso no autorizado, mientras que la protección de datos implica asegurarse de que una organización tenga una forma de restaurar sus datos después de un evento de pérdida de datos.</p>
+        <p>A pesar de estas diferencias, la privacidad y la protección de datos se utilizan juntas. Las cintas de respaldo se cifran comúnmente para evitar el acceso no autorizado a los datos almacenados en la cinta.</p>
+    </div>
+
+    <div class="col-11 mx-auto mt-4">
+        <h4>Similitudes y superposición</h4>
+        <p>Como se señaló anteriormente, existe un grado considerable de superposición entre la protección de datos, la seguridad de los datos y la privacidad de los datos. Esto es especialmente cierto en lo que respecta al cumplimiento normativo.</p>
+        <h5>Cumplimiento/regulaciones</h5>
+        <p>Las regulaciones como HIPAA, GDPR y el estándar de seguridad de datos de la industria de tarjetas de pago (PCI DSS) buscan proteger los datos y evitar la divulgación no autorizada de datos al combinar la protección de datos, la seguridad de los datos y la privacidad de los datos en una estrategia integral de administración de datos.</p>
+        <p>El GDPR es un conjunto de leyes de privacidad de datos promulgadas por la Unión Europea para garantizar la privacidad del consumidor. Estas leyes obligan a las organizaciones a revelar sus esfuerzos de recopilación de datos y ayudan a garantizar la privacidad del consumidor al otorgarles el derecho a determinar cómo se pueden usar sus datos, al tiempo que imponen sanciones a las organizaciones por violaciones de datos.</p>
+        <p>Por supuesto, el GDPR no es la única regulación de protección de datos. En los Estados Unidos, los proveedores de atención médica están sujetos a las regulaciones de HIPAA, que también están diseñadas para garantizar la seguridad y privacidad de los datos de atención médica identificables personalmente.</p>
+        <p>El GDPR, HIPAA y regulaciones similares establecen estándares de privacidad de datos al tiempo que describen los requisitos que las organizaciones deben implementar para garantizar la protección y la seguridad de los datos.</p>
+    </div>
+    <div class="col-11 mx-auto mt-4">
+        <h4>Tokenización</h4>
+        <p>Las regulaciones como GDPR y HIPAA se enfocan en gran medida en garantizar la privacidad de los datos de identificación personal. Una forma en que las organizaciones se protegen a sí mismas, al mismo tiempo que ayudan a garantizar la privacidad del consumidor, es mediante la tokenización.</p>
+        <p>La tokenización implica eliminar la información de identificación personal de los datos y reemplazar esa información con un token de datos. Este token suele ser un número o una cadena aleatoria de caracteres y sirve para separar los datos de su asunto. De esa manera, si los datos se filtraron, el destinatario de esos datos no tendría una manera fácil de asociar un conjunto de datos con un consumidor individual.</p>
+    </div>
+
+</div>
+{% endblock %}

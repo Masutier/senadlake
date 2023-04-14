@@ -1,0 +1,87 @@
+.atxt {
+    color: #1b262c !important;
+}
+.atxt0 {
+    color: #1b262c !important;
+    font-size: large;
+}
+.atxt0a {
+    color: #000070 !important;
+}
+
+.atxt1 {
+    color: #9999ff !important;
+}
+.atxt1a {
+    color: #9999ff !important;
+    font-size: large;
+}
+.atxt1b {
+    color: #9999ff !important;
+    font-size: 2.5em;
+    text-shadow: 3px 3px #130d57;
+}
+.atxt1c {
+    color: #9999ff !important;
+    font-size: 1.5rem;
+}
+.atxt1d {
+    color: #9999ff !important;
+    font-size: 1.8rem;
+    text-shadow: 2px 2px #130d57;
+}
+.atxt2 {
+    color: #1a1aff !important;
+    font-size: large;
+}
+.atxt3 {
+    color: #000070 !important;
+    font-size: large;
+    font-weight: bold;
+}
+.atxt5 {
+    color: #000070 !important;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.atxt6 {
+    color: #000070 !important;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+.atxt7 {
+    color: #9999ff !important;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.atxt7a {
+    color: #000070 !important;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.atxt8 {
+    color: white !important;
+}
+
+.back {
+    font-weight: bold;
+    background: rgb(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    border: 1px solid rgba(98, 106, 214, 0.1);
+    border-radius: 10px;
+}
+
+/* TEXTOS */
+
+.txtupp {
+    text-transform: uppercase;
+}
+
+.txtlow {
+    text-transform: lowercase;
+}
+
+.txtcap {
+    text-transform: capitalize;
+}

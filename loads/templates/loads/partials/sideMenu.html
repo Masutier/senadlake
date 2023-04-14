@@ -1,0 +1,39 @@
+{% load static %}
+
+<div class="d-grid gap-2">
+    <form action="/searchFiles/" method="POST" id="systemForm">{% csrf_token %}
+        <h3 class="mb-2 atxt1d">Filters</h3>
+        <div class="d-grid gap-2">
+            <a href="{% url 'setFiles' %}" class="btn btn-primary">DataSets</a>
+            <button type="submit" name="system" value="csv" form="systemForm" class="btn btn-primary">Archivos .csv</button>
+            <button type="submit" name="system" value="json" form="systemForm" class="btn btn-primary">Archivos .json</button>
+            <button type="submit" name="system" value="xlsx" form="systemForm" class="btn btn-primary">Archivos .xlsx</button>
+            <button type="submit" name="system" value="pdf" form="systemForm" class="btn btn-primary">Archivos .pdf</button>
+
+            <h3 class="mb-2 atxt1d">Authority</h3>
+
+            <button type="submit" name="system" value="Oficial" form="systemForm" class="btn btn-primary">Oficial</button>
+            <button type="submit" name="system" value="Comunidad" form="systemForm" class="btn btn-primary">Comunidad</button>
+            <button type="submit" name="system" value="Privado" form="systemForm" class="btn btn-primary">Privado</button>
+
+            <h3 class="mb-2 atxt1d">Category</h3>
+
+            <button type="submit" name="system" value="Ciencia" form="systemForm" class="btn btn-primary">Ciencia</button>
+            <button type="submit" name="system" value="Comercio" form="systemForm" class="btn btn-primary">Comercio</button>
+            <button type="submit" name="system" value="Cultura" form="systemForm" class="btn btn-primary">Cultura</button>
+            <button type="submit" name="system" value="Educacion" form="systemForm" class="btn btn-primary">Educacion</button>
+            <button type="submit" name="system" value="Medicina" form="systemForm" class="btn btn-primary">Medicina</button>
+
+            <h3 class="mb-2 atxt1d">Territory</h3>
+
+
+            <button type="submit" name="system" value="Nacional" form="systemForm" class="btn btn-primary">Nacional</button>
+            <button type="submit" name="system" value="Departamento" form="systemForm" class="btn btn-primary">Departamento</button>
+            <button type="submit" name="system" value="Municipio" form="systemForm" class="btn btn-primary">Municipio</button>
+            <button type="submit" name="system" value="Pueblo" form="systemForm" class="btn btn-primary">Pueblo</button>
+            <button type="submit" name="system" value="Zona" form="systemForm" class="btn btn-primary">Zona</button>
+            <button type="submit" name="system" value="Barrio" form="systemForm" class="btn btn-primary">Barrio</button>
+
+        </div>
+    </form>
+</div>

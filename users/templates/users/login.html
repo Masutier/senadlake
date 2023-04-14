@@ -1,0 +1,44 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+
+{% include 'senadlake/partials/banner.html' %}
+
+<div class="col-7 mx-auto p-5 mt-5 rounded bodyz">
+    <h1>Entrance</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">username</span>
+            <input type="text" name="username" class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Password</span>
+            <input type="password" name="password" class="form-control">
+        </div>
+
+        <div class="col-12 mx-auto">
+            <div class="row">
+                <div class="col-6 mt-5 mx-auto c">
+                    {{ form.captcha }}
+                </div>
+    
+                <div class="col-6 mt-5 d-grid gap-2 mx-auto">
+                    <button type="submit" class="btn btn-outline-dark">LogIn</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="col-md-11 mx-auto mt-5 c">
+        <a href="{% url 'reset_password' %}">
+            <h5>Forgot my password</h5>
+        </a>
+    </div>
+</div>
+
+{% endblock content %}

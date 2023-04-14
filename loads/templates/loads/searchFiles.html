@@ -1,0 +1,58 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{% include 'senadlake/partials/banner.html' %}
+
+<div class="col-md-12 mx-auto bodyx p-5">
+    <div class="col-12 mx-auto">
+        <div class="row">
+
+            <div class="col-3 mx-auto px-5 atxt0">
+                <div class="col-12 ">
+                    {% include 'loads/partials/sideMenu.html' %}
+                </div>
+            </div>
+
+            <div class="col-9 mx-auto ">
+                {% if files %}
+                    <h2 class="atxt1b">We found {{fileCount}} Files of {{system}}</h2>
+                    {% for item in files %}
+                        <div class="card back mb-3">
+                            <div class="card-header">
+                                {{item.file_ext}}
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h5 class="card-title">{{item.file}}</h5>
+                                    </div>
+                                    <div class="col-3 mb-1">
+                                        <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
+                                    </div>
+                                </div>
+                                <h5 class="card-text">{{item.description}}</h5>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

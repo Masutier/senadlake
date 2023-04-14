@@ -1,0 +1,113 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{% include 'senadlake/partials/banner.html' %}
+
+<div class="container mb-5">
+    <div class="col-12 mx-auto mt-5">
+        <h1>Load files</h1>
+    </div>
+
+    <hr>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="col-12 mx-auto mt-5">
+            <div class="row">
+                <div class="col-7 mx-auto mb-3">
+
+                    <div class="col-11 mx-auto mb-3">
+                        <div class="mb-3">
+                            <label for="inputfile" class="form-label atxt1">Input File to Proccess</label>
+                            <input class="form-control" type="file" name="file">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Textarea1" class="form-label atxt1">File Description</label>
+                            <textarea class="form-control" name="description" id="Textarea1" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-11 mx-auto mb-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="FormControl5" class="form-label atxt1">Autoridad</label>
+                                <select class="form-select" name="autority" id="FormControl5" aria-label="form-select">
+                                    <option class="atxt2" value="Oficial">Oficial</option>
+                                    <option class="atxt2" value="Comunidad">Comunidad</option>
+                                    <option class="atxt2" value="Privado">Privado</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6">
+                                <label for="FormControl5" class="form-label atxt1">Category</label>
+                                <select class="form-select" name="category" id="FormControl5" aria-label="form-select">
+                                    <option class="atxt2" value="Ciencia">Ciencia</option>
+                                    <option class="atxt2" value="Comercio">Comercio</option>
+                                    <option class="atxt2" value="Cultura">Cultura</option>
+                                    <option class="atxt2" value="Educacion">Educacion</option>
+                                    <option class="atxt2" value="Medicina">Medicina</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-11 mx-auto mb-3">
+                        <div class="col-6">
+                            <label for="FormControl5" class="form-label atxt1">Territory</label>
+                            <select class="form-select" name="territory" id="FormControl5" aria-label="form-select">
+                                <option class="atxt2" value="Nacional">Nacional</option>
+                                <option class="atxt2" value="Departamento">Departamento</option>
+                                <option class="atxt2" value="Municipio">Municipio</option>
+                                <option class="atxt2" value="Pueblo">Pueblo</option>
+                                <option class="atxt2" value="Zona">Zona</option>
+                                <option class="atxt2" value="Barrio">Barrio</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-11 mx-auto mt-4">
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button id="butSpin" class="btn btn-primary btn-color mt-3" type="submit" name="submit">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-3">
+                    <div class="col-11 mx-auto mb-3">
+                        <h3>Some Recomendations</h3>
+                        <p>Check that the file is in the Downloads folder</p>
+                    </div>
+                    <div class="col-10 mt-5">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Compu" checked>
+                            <label class="form-check-label" for="exampleRadios1">Save in Local Disk</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="AllSave">
+                            <label class="form-check-label" for="exampleRadios2">Save Local and Cloud</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div id="spin" class="col-10 mx-auto color_blue mt-3 c borde">
+        <div class="spinner ">
+            <h1>Loading</h1>
+            <h3>Please whait, this may take some time</h3>
+        </div>
+    </div>
+
+</div>
+
+<script src="{% static 'js/spinner.js' %}" type="text/javascript"></script>
+
+{% endblock %}

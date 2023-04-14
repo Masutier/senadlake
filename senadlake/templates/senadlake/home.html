@@ -1,0 +1,39 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{% include 'senadlake/partials/banner.html' %}
+
+
+<div class="col-md-12 mx-auto pt-2 pb-5 bodyx">
+    <div class="col-10 mx-auto mt-3">
+        <div class="col-5 mx-auto mb-4 c atxt1">
+            <h2>What Others Think Of Us</h2>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for rating in ratings %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title atxt0a">{{rating.user.username}}</h5>
+                        <p class="card-text atxt0a">{{rating.message}}</p>
+                        <div class="row">
+                            <div class="col-6">
+                                {% include 'raiting/partials/stars.html' %}
+                            </div>
+                            <div class="col-6">
+                                <small class="text-body-secondary atxt0a">{{rating.date_created}}</small>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+
+{% if form.errors %}
+    <p>There is an error in the form</p>
+{% endif %}
+
+<div class="col-md-11 mx-auto mt-5 pb-5 bodyx">
+    <div class="col-md-6 mx-auto bodyz">
+
+        <div class="col-9 mx-auto pt-5">
+            <form method="POST">
+            {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="FormControl0" class="form-label atxt0">Username</label>
+                    <input type="text" name="username" class="form-control" id="FormControl0">
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="FormControl1" class="form-label atxt0">First Name</label>
+                            <input type="text" name="first_name" class="form-control" aria-labelledby="first_name">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="FormControl2" class="form-label atxt0">Last Name</label>
+                            <input type="text" name="last_name" class="form-control" aria-labelledby="last_name">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="FormControl3" class="form-label atxt0">Email</label>
+                    <input class="form-control" type="email" name="email" id="FormControl3" placeholder="name@example.com">
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="inputPassword1" class="form-label atxt0">Password</label>
+                            <input type="password" name="password1" class="form-control" aria-labelledby="inputPassword1">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-2">
+                            <label for="inputPassword2" class="form-label atxt0">Password Confirmation</label>
+                            <input type="password" name="password2" class="form-control" aria-labelledby="inputPassword2">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-lg-11 mx-auto mt-5 pb-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="d-grid gap-2 mx-auto">
+                                <button class="btn btn-success btn-sm btn-block" onclick="goBack()">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid gap-2 mx-auto">
+                                <button class="btn btn-info atxt0" type="submit" value="submit">submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/bubblesII.js' %}" type="text/javascript"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+{% endblock content %}
