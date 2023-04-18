@@ -1,6 +1,8 @@
 import os
 import json
 from pathlib import Path
+from .dbases import dbSqlite
+from .confSett import localSett, prodSett
 
 with open("/home/gabriel/prog/json_config/senadlake.json") as config_file:
     config = json.load(config_file)
@@ -8,26 +10,13 @@ with open("/home/gabriel/prog/json_config/senadlake.json") as config_file:
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = config['SECRET_KEY']
-RECAPTCHA_PUBLIC_KEY = config['RECAT_PUBLIC_KEY_DEBUG']
-RECAPTCHA_PRIVATE_KEY = config['RECAT_SECRET_KEY_DEBUG']
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'senadlake',
-    'captcha',
-    'loads',
-    'raiting',
-    'users',
-]
+if DEBUG == True:
+    ALLOWED_HOSTS, INSTALLED_APPS = localSett()
+else:
+    ALLOWED_HOSTS, RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, INSTALLED_APPS = prodSett()
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,12 +48,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'senadlake.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'senadlake.db'),
-    }
-}
+DATABASES = dbSqlite(BASE_DIR)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
