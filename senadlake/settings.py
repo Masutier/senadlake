@@ -100,7 +100,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
-MEDIA_ROOT = '/home/gabriel/prog/dataAnaliticsFiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 SESSION_COOKIE_AGE = 21600

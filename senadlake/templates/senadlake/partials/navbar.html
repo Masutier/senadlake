@@ -17,7 +17,8 @@
             </ul>
             <ul class="navbar-nav mt-2 mt-lg-0">
                 {% if user.is_authenticated %}
-                    <li class="nav-item navtext"><a class="nav-link" href="{% url 'loadFile' %}">LOAD FILES</a></li>
+                    <li class="nav-item navtext"><a class="nav-link" href="{% url 'createUs' %}">Create Us</a></li>
+                    <li class="nav-item navtext"><a class="nav-link" href="{% url 'loadFile' %}">Load Files</a></li>
                     <li class="nav-item navtext"><a class="nav-link" href="{% url 'userProfile' %}">Hello {{user.username}}</a>
                     <li class="nav-item navtext"><a class="nav-link" href="{% url 'userLogout' %}">OUT</a></li>
                 {% else %}

@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from .forms import *
+from .models import *
 
 
 @unauthenticated_user
@@ -67,3 +68,24 @@ def userProfile(request):
 
     context = {'title':'User Profile', 'banner':"Profile"}
     return render(request, 'users/user_profile.html', context)
+
+
+def createUs(request):
+    form = CooperationForm()
+
+    if request.method == 'POST':
+        form = CooperationForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return redirect('us')
+
+    context={"title": "Crear US", "banner": "Us", 'form':form}
+    return render(request, 'users/createUs.html', context)
+
+
+def us(request):
+    usAll = Cooperation.objects.all()
+
+    context={"title": "US", "banner": "The Right Stuff", 'usAll':usAll}
+    return render(request, 'users/us.html', context)

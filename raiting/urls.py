@@ -5,8 +5,6 @@ from .views import *
 
 urlpatterns = [
     path('raiting', raiting, name='raiting'),
-    path('us', us, name='us'),
-
     path('testing', testing, name='testing'),
 
 ]

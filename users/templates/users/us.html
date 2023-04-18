@@ -1,0 +1,40 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+{% include 'senadlake/partials/banner.html' %}
+
+    <div class="col-11 mx-auto">
+        
+        <div class="col-md-12 mx-auto pt-2 pb-5 bodyx">
+            <div class="col-10 mx-auto mt-3 c atxt1">
+                <h1>Nosotros</h1>
+                <p>En esta pagina esta dedicada a aquellos que dedicaron su tiempo en el desarrollo de el proyecto completo.</p>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for us in usAll %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="{{ us.photo.url }}" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title atxt0a">{{ us.user.username|upper }}</h5>
+                                <p class="card-text atxt0a">{{ us.title }} / {{ us.jobDone }}</p>
+                                <p class="card-text atxt0a">{{ us.description }}</p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <small class="text-body-secondary atxt0a">{{ us.join_date|date:"M d, Y" }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

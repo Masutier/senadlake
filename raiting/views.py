@@ -30,12 +30,6 @@ def raiting(request):
     return render(request, 'raiting/raiting.html', context)
 
 
-def us(request):
-
-    context={"title": "US", "banner": "Us"}
-    return render(request, 'raiting/us.html', context)
-
-
 def testing(request):
     ratings = Raiting.objects.all()
 

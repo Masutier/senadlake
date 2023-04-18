@@ -1,0 +1,42 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+
+{% if form.errors %}
+    <p>There is an error in the form</p>
+{% endif %}
+
+<div class="col-md-12 mx-auto bodyx">
+
+    <div class="col-6 mx-auto p-5 bodyz">
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="d-grid gap-2 mx-auto">
+                        <button class="btn btn-info btn-sm btn-block" onclick="goBack()">Cancel</button>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-grid gap-2 mx-auto">
+                        <button class="btn btn-info btm-sm btn-block " type="submit" value="submit">submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+{% endblock content %}
