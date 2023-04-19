@@ -10,3 +10,4 @@ users/__pycache__
 static/docs/*
 
 media
+media/*
