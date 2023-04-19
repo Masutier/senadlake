@@ -4,8 +4,7 @@ from pathlib import Path
 from .dbases import dbSqlite
 from .confSett import localSett, prodSett
 
-with open("/home/gabriel/prog/json_config/senadlake.json") as config_file:
-    config = json.load(config_file)
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

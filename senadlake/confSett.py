@@ -39,3 +39,13 @@ def prodSett():
     ]
 
     return ALLOWED_HOSTS, RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY, INSTALLED_APPS
+
+def securFileHome():
+    with open("/home/gabriel/prog/json_config/senadlake.json") as config_file:
+    config = json.load(config_file)
+    return config
+
+def securFileSena():
+    with open("C:\inetpub\wwwroot\senadlake.json") as config_file:
+    config = json.load(config_file)
+    return config
