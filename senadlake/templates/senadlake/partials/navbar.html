@@ -1,26 +1,27 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-dark prod abak1 stic">
+<nav class="navbar navbar-expand-lg navback"  data-bs-theme="dark" >
     <div class="container">
-        <a class="navbar-brand " href="/"><img src="{% static '/img/icons8-file-48.png' %}" class="imgnav" alt="DataLake" /></a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDrop" aria-controls="navbarDrop" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarDrop">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item navtext"><a class="nav-link" href="{% url 'allFiles' %}">FILES</a></li>
-                <li class="nav-item navtext"><a class="nav-link" href="{% url 'us' %}">TEAM</a></li>
-                <li class="nav-item navtext"><a class="nav-link" href="{% url 'raiting' %}">REVIEWS</a></li>
-                <li class="nav-item navtext"><a class="nav-link" href="{% url 'project' %}">PROJECT</a></li>
-                <li class="nav-item navtext"><a class="nav-link" href="{% url 'privacy' %}">PRIVACY</a></li>
+                <li class="nav-item btnbar"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item btnbar"><a class="nav-link" href="{% url 'allFiles' %}">Files</a></li>
+                <li class="nav-item btnbar"><a class="nav-link" href="{% url 'us' %}">Team</a></li>
+                <li class="nav-item btnbar"><a class="nav-link" href="{% url 'raiting' %}">Reviews</a></li>
+                <li class="nav-item btnbar"><a class="nav-link" href="{% url 'project' %}">Project</a></li>
+                <li class="nav-item btnbar"><a class="nav-link" href="{% url 'privacy' %}">Privacy</a></li>
 
             </ul>
             <ul class="navbar-nav mt-2 mt-lg-0">
                 {% if user.is_authenticated %}
-                    <li class="nav-item navtext"><a class="nav-link" href="{% url 'createUs' %}">Create Us</a></li>
-                    <li class="nav-item navtext"><a class="nav-link" href="{% url 'loadFile' %}">Load Files</a></li>
-                    <li class="nav-item navtext"><a class="nav-link" href="{% url 'userProfile' %}">Hello {{user.username}}</a>
-                    <li class="nav-item navtext"><a class="nav-link" href="{% url 'userLogout' %}">OUT</a></li>
+                    <li class="nav-item btnbar"><a class="nav-link" href="{% url 'createUs' %}">Create Us</a></li>
+                    <li class="nav-item btnbar"><a class="nav-link" href="{% url 'loadFile' %}">Load Files</a></li>
+                    <li class="nav-item btnbar"><a class="nav-link" href="{% url 'userProfile' %}">Hello {{user.username}}</a>
+                    <li class="nav-item btnbar"><a class="nav-link" href="{% url 'userLogout' %}">OUT</a></li>
                 {% else %}
                     <li class="nav-item navtext"><a class="nav-link" href="{% url 'loginPage' %}">ENTER</a></li>
                 {% endif %}

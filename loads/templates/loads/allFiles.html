@@ -51,19 +51,26 @@
                     <h2 class="atxt1b">CSV Files</h2>
                     {% for item in csvFiles %}
                         <div class="card back mb-3">
+
                             <div class="card-header">
-                                {{item.file_ext}}
-                            </div>
-                            <div class="card-body">
                                 <div class="row">
-                                    <div class="col-9">
-                                        <h5 class="card-title">{{item.file}}</h5>
+                                    <div class="col-10">
+                                        {{item.file_ext}}
                                     </div>
-                                    <div class="col-3 mb-1">
+
+                                    <div class="col-2">
                                         <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="col-9">
+                                    <h5 class="card-title">{{item.file}}</h5>
+                                </div>
+
                                 <h5 class="card-text">{{item.description}}</h5>
+                                
                                 <div class="row">
                                     <div class="col-4">
                                         <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
@@ -75,6 +82,7 @@
                                         <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     {% endfor %}
@@ -84,19 +92,26 @@
                     <h2 class="atxt1b">JSON Files</h2>
                     {% for item in jsonFiles %}
                         <div class="card back mb-3">
+
                             <div class="card-header">
-                                {{item.file_ext}}
-                            </div>
-                            <div class="card-body">
                                 <div class="row">
-                                    <div class="col-9">
-                                        <h5 class="card-title">{{item.file}}</h5>
+                                    <div class="col-10">
+                                        {{item.file_ext}}
                                     </div>
-                                    <div class="col-3 mb-1">
+                                    
+                                    <div class="col-2">
                                         <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="col-9">
+                                    <h5 class="card-title">{{item.file}}</h5>
+                                </div>
+ 
                                 <h5 class="card-text">{{item.description}}</h5>
+
                                 <div class="row">
                                     <div class="col-4">
                                         <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
@@ -108,6 +123,7 @@
                                         <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     {% endfor %}
@@ -117,19 +133,26 @@
                     <h2 class="atxt1b">XLSX Files</h2>
                     {% for item in xlsxFiles %}
                         <div class="card back mb-3">
+                            
                             <div class="card-header">
-                                {{item.file_ext}}
-                            </div>
-                            <div class="card-body">
                                 <div class="row">
-                                    <div class="col-9">
-                                        <h5 class="card-title">{{item.file}}</h5>
+                                    <div class="col-10">
+                                        {{item.file_ext}}
                                     </div>
-                                    <div class="col-3 mb-1">
+                                    
+                                    <div class="col-2">
                                         <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
                                     </div>
                                 </div>
-                                <p class="card-text">{{item.description}}</p>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="col-9">
+                                    <h5 class="card-title">{{item.file}}</h5>
+                                </div>
+ 
+                                <h5 class="card-text">{{item.description}}</h5>
+
                                 <div class="row">
                                     <div class="col-4">
                                         <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
@@ -141,6 +164,7 @@
                                         <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     {% endfor %}
@@ -149,33 +173,41 @@
                 {% if pdfFiles %}
                     <h2 class="atxt1b">PDF Files</h2>
                     {% for item in pdfFiles %}
-                        <div class="card back mb-3">
-                            <div class="card-header">
-                                {{item.file_ext}}
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-9">
-                                        <h5 class="card-title">{{item.file}}</h5>
-                                    </div>
-                                    <div class="col-3 mb-1">
-                                        <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
-                                    </div>
+                    <div class="card back mb-3">
+                            
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-10">
+                                    {{item.file_ext}}
                                 </div>
-                                <p class="card-text">{{item.description}}</p>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
-                                    </div>
+                                
+                                <div class="col-2">
+                                    <a class="btn btn-info btn-sm" href="{{ item.file.url }}">Download</a>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card-body">
+                            <div class="col-9">
+                                <h5 class="card-title">{{item.file}}</h5>
+                            </div>
+
+                            <h5 class="card-text">{{item.description}}</h5>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
+                                </div>
+                                <div class="col-4">
+                                    <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
+                                </div>
+                                <div class="col-4">
+                                    <span class="badge rounded-pill text-bg-dark abak2 atxt7">{{item.file_ext}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                     {% endfor %}
                 {% endif %}
 

@@ -1,3 +1,5 @@
+import os
+import json
 
 def localSett():
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -42,10 +44,10 @@ def prodSett():
 
 def securFileHome():
     with open("/home/gabriel/prog/json_config/senadlake.json") as config_file:
-    config = json.load(config_file)
+        config = json.load(config_file)
     return config
 
 def securFileSena():
     with open("C:\inetpub\wwwroot\senadlake.json") as config_file:
-    config = json.load(config_file)
+        config = json.load(config_file)
     return config

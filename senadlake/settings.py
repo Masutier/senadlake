@@ -2,9 +2,14 @@ import os
 import json
 from pathlib import Path
 from .dbases import dbSqlite
-from .confSett import localSett, prodSett
+from .confSett import localSett, prodSett, securFileHome, securFileSena
 
+SENA = False
 
+if SENA:
+    config = securFileSena()
+else:
+    config = securFileHome()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

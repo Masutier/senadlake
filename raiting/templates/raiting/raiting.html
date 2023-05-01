@@ -7,19 +7,14 @@
 {% include 'senadlake/partials/banner.html' %}
 
 
-    <div class="col-md-6 mx-auto mt-5 pb-5 bodyx">
+    <div class="col-md-6 mx-auto mt-5">
 
-        <div class="col-9 mx-auto pt-5">
+        <div class="col-9 mx-auto pt-5 formsback">
             <form method="POST">
                 {% csrf_token %}
 
-                <div class="mb-4">
-                    <label for="Textarea1" class="form-label atxt3">Please say something</label>
-                    <textarea class="form-control" name="message" id="Textarea1" rows="3"></textarea>
-                </div>
-
-                <div class="mb-5">
-                    <label for="FormControl0" class="form-label atxt3">Rate our service please</label>
+                <div class="mb-3">
+                    <label for="FormControl0" class="form-label atxt3 mb-3">Please rate our service</label>
                     <div class="input-group">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="stars" id="inlineRadio1" value=1>
@@ -44,7 +39,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-11 mx-auto pb-5">
+                <div class="mb-4">
+                    <label for="Textarea1" class="form-label atxt3 mb-3">And say something</label>
+                    <textarea class="form-control" name="message" id="Textarea1" rows="3"></textarea>
+                </div>
+
+                <div class="col-lg-11 mx-auto pb-4">
                     <div class="row">
                         <div class="col-6">
                             <div class="d-grid gap-2 mx-auto">

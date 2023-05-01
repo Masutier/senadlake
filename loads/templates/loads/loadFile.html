@@ -6,96 +6,91 @@
 {% block content %}
 {% include 'senadlake/partials/banner.html' %}
 
-<div class="container mb-5">
-    <div class="col-12 mx-auto mt-5">
-        <h1>Load files</h1>
-    </div>
+<div class="col-md-12 mx-auto mt-5">
 
-    <hr>
+    <div class="col-9 mx-auto pt-4 formsback">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+        <div class="row">
+            <div class="col-8 mx-auto mt-4 mb-3">
 
-        <div class="col-12 mx-auto mt-5">
-            <div class="row">
-                <div class="col-7 mx-auto mb-3">
-
-                    <div class="col-11 mx-auto mb-3">
-                        <div class="mb-3">
-                            <label for="inputfile" class="form-label atxt1">Input File to Proccess</label>
-                            <input class="form-control" type="file" name="file">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="Textarea1" class="form-label atxt1">File Description</label>
-                            <textarea class="form-control" name="description" id="Textarea1" rows="3"></textarea>
-                        </div>
+                <div class="col-11 mx-auto mb-3">
+                    <div class="mb-3">
+                        <label for="inputfile" class="form-label atxt2">Input File to Proccess</label>
+                        <input class="form-control" type="file" name="file">
                     </div>
 
-                    <div class="col-11 mx-auto mb-3">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="FormControl5" class="form-label atxt1">Autoridad</label>
-                                <select class="form-select" name="autority" id="FormControl5" aria-label="form-select">
-                                    <option class="atxt2" value="Oficial">Oficial</option>
-                                    <option class="atxt2" value="Comunidad">Comunidad</option>
-                                    <option class="atxt2" value="Privado">Privado</option>
-                                </select>
-                            </div>
-
-                            <div class="col-6">
-                                <label for="FormControl5" class="form-label atxt1">Category</label>
-                                <select class="form-select" name="category" id="FormControl5" aria-label="form-select">
-                                    <option class="atxt2" value="Ciencia">Ciencia</option>
-                                    <option class="atxt2" value="Comercio">Comercio</option>
-                                    <option class="atxt2" value="Cultura">Cultura</option>
-                                    <option class="atxt2" value="Educacion">Educacion</option>
-                                    <option class="atxt2" value="Medicina">Medicina</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="Textarea1" class="form-label atxt2">File Description</label>
+                        <textarea class="form-control" name="description" id="Textarea1" rows="3"></textarea>
                     </div>
+                </div>
 
-                    <div class="col-11 mx-auto mb-3">
+                <div class="col-11 mx-auto mb-3">
+                    <div class="row">
                         <div class="col-6">
-                            <label for="FormControl5" class="form-label atxt1">Territory</label>
-                            <select class="form-select" name="territory" id="FormControl5" aria-label="form-select">
-                                <option class="atxt2" value="Nacional">Nacional</option>
-                                <option class="atxt2" value="Departamento">Departamento</option>
-                                <option class="atxt2" value="Municipio">Municipio</option>
-                                <option class="atxt2" value="Pueblo">Pueblo</option>
-                                <option class="atxt2" value="Zona">Zona</option>
-                                <option class="atxt2" value="Barrio">Barrio</option>
+                            <label for="FormControl5" class="form-label atxt2">Autoridad</label>
+                            <select class="form-select" name="autority" id="FormControl5" aria-label="form-select">
+                                <option class="atxt2" value="Oficial">Oficial</option>
+                                <option class="atxt2" value="Comunidad">Comunidad</option>
+                                <option class="atxt2" value="Privado">Privado</option>
+                            </select>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="FormControl5" class="form-label atxt2">Category</label>
+                            <select class="form-select" name="category" id="FormControl5" aria-label="form-select">
+                                <option class="atxt2" value="Ciencia">Ciencia</option>
+                                <option class="atxt2" value="Comercio">Comercio</option>
+                                <option class="atxt2" value="Cultura">Cultura</option>
+                                <option class="atxt2" value="Educacion">Educacion</option>
+                                <option class="atxt2" value="Medicina">Medicina</option>
                             </select>
                         </div>
                     </div>
-
-                    <div class="col-11 mx-auto mt-4">
-                        <div class="d-grid gap-2 col-6 mx-auto">
-                            <button id="butSpin" class="btn btn-primary btn-color mt-3" type="submit" name="submit">Submit</button>
-                        </div>
-                    </div>
-
                 </div>
 
-                <div class="col-3">
-                    <div class="col-11 mx-auto mb-3">
-                        <h3>Some Recomendations</h3>
-                        <p>Check that the file is in the Downloads folder</p>
+                <div class="col-11 mx-auto mb-3">
+                    <div class="col-6">
+                        <label for="FormControl5" class="form-label atxt2">Territory</label>
+                        <select class="form-select" name="territory" id="FormControl5" aria-label="form-select">
+                            <option class="atxt2" value="Nacional">Nacional</option>
+                            <option class="atxt2" value="Departamento">Departamento</option>
+                            <option class="atxt2" value="Municipio">Municipio</option>
+                            <option class="atxt2" value="Pueblo">Pueblo</option>
+                            <option class="atxt2" value="Zona">Zona</option>
+                            <option class="atxt2" value="Barrio">Barrio</option>
+                        </select>
                     </div>
-                    <div class="col-10 mt-5">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Compu" checked>
-                            <label class="form-check-label" for="exampleRadios1">Save in Local Disk</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="AllSave">
-                            <label class="form-check-label" for="exampleRadios2">Save Local and Cloud</label>
-                        </div>
+                </div>
+
+                <div class="col-11 mx-auto mt-4">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button id="butSpin" class="btn btn-primary btn-color mt-3" type="submit" name="submit">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-3 ">
+                <div class="m-3">
+                    <h4>Some Recomendations</h3>
+                    <p>Check that the file is in the Downloads folder</p>
+                </div>
+                <div class="m-3">
+                    <div class="form-check mt-5">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Compu" checked>
+                        <label class="form-check-label" for="exampleRadios1">Save in Local Disk</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="AllSave">
+                        <label class="form-check-label" for="exampleRadios2">Save Local and Cloud</label>
                     </div>
                 </div>
             </div>
         </div>
+
 
     </form>
 

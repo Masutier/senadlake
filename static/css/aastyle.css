@@ -1,0 +1,83 @@
+.borde {
+    border: solid 1px black !important;
+}
+.c {
+    text-align: center !important;
+}
+
+
+/* NAVBAR */
+
+.navback {
+    font-family: MyriadPro-Regular;
+    font-size: 1.2em;
+    color: ghostwhite;
+    background: rgb(89, 181, 72);
+
+}
+.btnbar:hover {
+    background: rgb(40, 151, 20);
+    border-radius: 2px;
+}
+.imgnav {
+    width: 200px; 
+    height: auto;
+}
+.imgnav2 {
+    width: 400px; 
+    height: auto;
+}
+
+/* BANNER */
+
+.fontbann {
+    font-family: Zurich Extra Black BT;
+    font-size: 1.2em;
+    color: ghostwhite;
+}
+.back {
+    background: rgb(89, 181, 72, 0.5);
+}
+.fontback {
+    background: rgba(30, 59, 24, 0.5);
+}
+
+/* CONTACT */
+
+.imgred {
+    width: 100px;
+    height: auto;
+    vertical-align: middle;
+    border-style: none;
+    -webkit-margin-bottom-collapse: initial;
+    padding-top: 2px;
+    padding-left: 30px;
+    z-index: 1000;
+}
+
+/* back-to-top */
+
+.backtotop {
+    width: 40pt;
+    height: auto;
+    position: fixed;
+    bottom: 4.50rem;
+    right: 1.75rem;
+    z-index: 999;
+}
+
+.backtotop:hover {
+    color: transparent;
+    background-color: transparent;
+}
+
+.formsback {
+    padding: 2em;
+    background: rgb(112, 112, 112, 0.3);
+    border-radius: 1em;
+
+}
+
+/* Background for forms 
+
+*/
