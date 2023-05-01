@@ -1,13 +1,8 @@
 venv
 venv/
-senadlake.db
 
 loads/__pycache__
 raiting/__pycache__
 senadlake/__pycache__
 users/__pycache__
 
-static/docs/*
-
-media
-media/*
