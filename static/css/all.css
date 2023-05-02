@@ -29,8 +29,6 @@
     background: rgb(64,184,240);
     background: linear-gradient(180deg, rgba(64,184,240,1) 0%, rgb(47, 41, 236) 86%);
 }
-
-
 .borde {
     border: solid 1px black !important;
 }
@@ -44,7 +42,6 @@
     color: rgb(194, 194, 242);
     height: 3px !important;
 }
-
 .sticky {
     position: sticky;
     top: 10px;
@@ -77,13 +74,11 @@
     padding-top: 2px;
     padding-left: 30px;
 }
-
 .stic {
     position: sticky;
     top: 0px;
     z-index: 1;
 }
-
 .prod {
     z-index: 100 !important;
 }
@@ -93,7 +88,6 @@
 .backcol {
     background-color: rgb(47, 41, 236);
 }
-
 .imgred {
     width: 100px;
     height: auto;
@@ -112,12 +106,10 @@
     bottom: 10px;
     z-index: 1;
 }
-
 .back-black {
     color: aliceblue;
     background-color: black;
 }
-
 .foot-back {
     color: aliceblue;
     background: rgb(57,46,244);
@@ -144,7 +136,6 @@
     padding-left: 30px;
     z-index: 1000;
 }
-
 .imgventas{
     width: 400px;
     height: auto;
@@ -156,7 +147,6 @@
     padding-left: 30px;
     z-index: 1000;
 }
-
 .imgfacturas{
     width: 500px;
     height: auto;
