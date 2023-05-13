@@ -1,5 +1,12 @@
 import os
 
+
+def extensions():
+    validExt = ['csv', 'json', 'xlsx', 'pdf', 'html', 'xml', 'sql', 'db', 'py', 'css', 'js']
+    validExtPro = ['csv', 'json', 'xlsx', 'xml']
+    return validExt, validExtPro
+
+
 def dbSqlite(BASE_DIR):
     DATABASES = {
         'default': {
@@ -9,3 +16,19 @@ def dbSqlite(BASE_DIR):
     }
 
     return DATABASES
+    
+
+def dbmariadb(BASE_DIR):
+    DATABASES = {
+	'default': {
+	    'ENGINE': 'django.db.backends.mariadbase', 
+	    'NAME': 'default_schema',
+	    'USER': 'root',
+	    'PASSWORD': 'test#$!',
+	    'HOST': 'db',
+	    'PORT': '3336',
+	}
+    }
+    
+    return DATABASES
+

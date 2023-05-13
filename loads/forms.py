@@ -8,5 +8,5 @@ class loadFileForm(ModelForm):
 
     class Meta:
         model = LoadFiles
-        fields = ('file', 'description', 'autority', 'category', 'territory')
-        exclude = ['file', 'file_ext', 'file_link', 'downloads', 'views', 'uploaded_at', 'clasify_at', 'published_at', 'updated']
+        fields = ('jsonFile', 'description', 'quality', 'autority', 'category', 'territory')
+        exclude = ['jsonFile', 'file_ext', 'file_link', 'file_name', 'file_numcols', 'file_numrows', 'file_columns', 'downloads', 'data_set', 'views', 'uploaded_at', 'clasify_at', 'published_at', 'updated']

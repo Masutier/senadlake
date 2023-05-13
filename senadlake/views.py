@@ -21,3 +21,8 @@ def privacy (request):
     context={"title": "Privacidad"}
     return render(request, 'senadlake/privacy.html', context)
 
+
+def page501 (request):
+
+    context={"title": "Privacidad"}
+    return render(request, 'senadlake/errors/501.html', context)

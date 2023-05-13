@@ -1,67 +1,99 @@
 import os
+import json
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import LoadFiles
 from .forms import loadFileForm
-from .utilities import fileList, singleList
+from .utilities import fileList, singleList, newFolder
+from senadlake.dbases import extensions
+import pandas as pd
 
+
+validExt, validExtPro = extensions()
 origen_path = "/home/gabriel/Downloads/"
-destiny_path = "/home/gabriel/prog/cleanCsvFlask/docs/"
+filepath = os.path.join(settings.BASE_DIR, "FILES/json/")
 
 
 def loadFile(request):
-
     if request.method == 'POST':
         form = loadFileForm(request.POST, request.FILES)
-
         if form.is_valid():
+            endDir = newFolder(filepath)
             pform = form.save(commit=False)
-            filex = request.FILES.get('file').name
-            extent = filex.split('.')
-            ext = extent[-1]
-            file_name = extent[0]
+            inputFile = request.FILES['inputFile']
+            namefile = inputFile.name
+            filenamex = namefile.split('.')
 
-            if filex == ext:
-                extMess = "The file has no extension. Please, verify name and extension and try again."
-                messages.warning(request, "The file was NOT saved" + " ** WARNING ** " + extMess)
-                return redirect("home")
-            elif ext == 'csv':
-                pform.file = request.FILES.get('file')
-                pform.file_link = destiny_path
-                pform.file_ext = ext
-                pform.file_name = file_name
-                pform.save()
-                messages.success(request, "The file was saved successfully")
-                return redirect("home")
-            elif ext == 'json':
-                pform.file = request.FILES.get('file')
-                pform.file_link = destiny_path
-                pform.file_ext = ext
-                pform.file_name = file_name
-                pform.save()
-                messages.success(request, "The file was saved successfully")
-                return redirect("home")
-            elif ext == 'xlsx':
-                pform.file = request.FILES.get('file')
-                pform.file_link = destiny_path
-                pform.file_ext = ext
-                pform.file_name = file_name
-                pform.save()
-                messages.success(request, "The file was saved successfully")
-                return redirect("home")
-            elif ext == 'pdf':
-                pform.file = request.FILES.get('file')
-                pform.file_link = destiny_path
-                pform.file_ext = ext
-                pform.file_name = file_name
-                pform.save()
-                messages.success(request, "The file was saved successfully")
-                return redirect("home")
+            if filenamex[-1] == 'csv':
+                df = pd.read_csv(inputFile, low_memory=False)
+                jsonFile = df.to_json(endDir + filenamex[0] + ".json.gz", indent=4, orient='records', compression='gzip', force_ascii=False)
 
+                pdcolumns = df.columns.tolist()
+                pform.jsonFile = namefile
+                pform.file_link = endDir + filenamex[0] + ".json.gz"
+                pform.file_ext = filenamex[-1]
+                pform.file_name = namefile
+                pform.file_columns = pdcolumns
+                pform.file_numcols = df.shape[1] #- To count columns
+                pform.file_numrows = df.shape[0] #- To count rows
+                pform.data_set = False
+                pform.save()
+                messages.success(request, "The file was saved successfully")
+
+                return redirect("allFiles")
+
+            elif filenamex[-1] == 'xlsx':
+                df = pd.ExcelFile(inputFile)
+
+                if len(df.sheet_names) > 1:
+                    sheets = []
+
+                    for sheet in df.sheet_names:
+                        fullSheet = pd.read_excel(inputFile, sheet_name=sheet)
+                        jsonOutput_gz = filepath + filenamex[0] + "_" + sheet + ".json" + ".gz"
+                        output = fullSheet.to_json(jsonOutput_gz, indent=4, orient='records', compression='gzip', force_ascii=False)
+                        sheets.append(sheet)
+
+                    pdcolumns = fullSheet.columns.tolist()
+                    pform.jsonFile = namefile
+                    pform.file_link = filepath + filenamex[0] + "_<sheet>.json.gz"
+                    pform.file_ext = filenamex[-1]
+                    pform.file_name = namefile
+                    pform.file_columns = pdcolumns
+                    pform.file_numcols = fullSheet.shape[1] #- To count columns
+                    pform.file_numrows = fullSheet.shape[0] #- To count rows
+                    pform.data_set = True
+                    pform.sheet_set = sheets
+                    pform.save()
+
+                    return redirect("allFiles")
+                else:
+                    sheet = str(df.sheet_names)
+                    df = pd.read_excel(inputFile)
+                    jsonOutput_gz = filepath + filenamex[0] + "_" + sheet + ".json" + ".gz"
+                    output = df.to_json(jsonOutput_gz, indent=4, orient='records', compression='gzip', force_ascii=False)
+
+                    pdcolumns = df.columns.tolist()
+                    pform.jsonFile = namefile
+                    pform.file_link = filepath + filenamex[0] + "_" + sheet + ".json.gz"
+                    pform.file_ext = filenamex[-1]
+                    pform.file_name = namefile
+                    pform.file_columns = pdcolumns
+                    pform.file_numcols = df.shape[1] #- To count columns
+                    pform.file_numrows = df.shape[0] #- To count rows
+                    pform.data_set = False
+                    pform.save()
+                    messages.success(request, "The file was saved successfully")
+
+                    return redirect("allFiles")
+            else:
+                extMess = "The file has not a valid extension. Please, verify name and extension and try again."
+                messages.warning(request, "The file was NOT saved ** WARNING ** " + extMess)
+                return redirect("home")
         else:
             messages.error(request + "Something went wrong. " + form.errors)
             return redirect("home")
-
     else:
         form = loadFileForm()
 
@@ -69,33 +101,84 @@ def loadFile(request):
     return render(request, 'loads/loadFile.html', context)
 
 
+def xlsAllFiles(request):
+    if request.method == 'POST':
+        form = loadFileForm(request.POST, request.FILES)
+
+        inputFile = request.FILES['inputFile']
+        sheetName = request.POST['sheetName']
+        separator = request.POST['separator']
+
+        print('inputFile', inputFile)
+        filenamex = inputFile.split('.')
+        print('filenamex', filenamex)
+        print('sheetName', sheetName)
+
+        if filenamex[-1] != "xlsx":
+            messages.success(request, "The file you enter is not an excel file, please check the file and try again")
+            return redirect('home')
+
+        messages.success(request, "The file xxxxxxxxvvvvvvvvv")
+        return redirect('home')
+
+    context={"title": "XLSX All", "sheetName":sheetName}
+    return render(request, 'xls_all/xlsLoad.html', context)
+
+
+def setDetail(request, pk):
+    detailIn = LoadFiles.objects.get(id=pk)
+
+    context={"title": "Detalle", "banner":"Pagina en Construccion"}
+    return render(request, 'senadlake/errors/404.html', context)
+
+
+def csvCall(request, pk):
+    fileIn = LoadFiles.objects.get(id=pk)
+    nameff = fileIn.file_name.split('.')
+    nameOut = nameff[0]
+
+    data = pd.read_json(fileIn.file_link)
+    csvout = data.to_csv(nameOut + ".csv", sep=';', encoding='utf-8')
+
+    return redirect('home')
+    
+
+def xlsxCall(request, pk):
+    fileIn = LoadFiles.objects.get(id=pk)
+    nameff = fileIn.file_name.split('.')
+    nameOut = nameff[0]
+
+    data = pd.read_json(fileIn.file_link)
+    csvout = data.to_excel(nameOut + ".xlsx", sheet_name="Sheet1", index=False)
+    return redirect('home')
+
+
+def jsonCall(request, pk):
+    print("jsonCall", pk)
+    return redirect('home')
+
+
+def pdfCall(request, pk):
+    print("pdfCall", pk)
+    return redirect('home')
+
+
 def allFiles(request):
-    dataSet = []
-    csvSingles = []
-    jsonSingles = []
-    xlsxSingles = []
-    pdfSingles = []
+    dataSets = []
+    setsCount = 0
 
-    csvFiles = LoadFiles.objects.filter(file_ext='csv')
-    csvcount = csvFiles.count()
+    allFiles = LoadFiles.objects.all()
+    dataSests = LoadFiles.objects.filter(data_set=1)
 
-    jsonFiles = LoadFiles.objects.filter(file_ext='json')
-    jsoncount = jsonFiles.count()
+    for sets in dataSests:
+        setsCount += 1
 
-    xlsxFiles = LoadFiles.objects.filter(file_ext='xlsx')
-    xlsxcount = xlsxFiles.count()
-
-    pdfFiles = LoadFiles.objects.filter(file_ext='pdf')
-    pdfcount = pdfFiles.count()
-
-    total = (csvcount + jsoncount + xlsxcount + pdfcount)
+    allcount = allFiles.count()
 
     context={"title": "All Files", "banner":"Files in DataBase"
-    , 'csvFiles':csvFiles, 'csvcount':csvcount
-    , 'jsonFiles':jsonFiles, 'jsoncount':jsoncount
-    , 'xlsxFiles':xlsxFiles, 'xlsxcount':xlsxcount
-    , 'pdfFiles':pdfFiles, 'pdfcount':pdfcount
-    , 'total':total
+    , 'allFiles':allFiles, 'allcount':allcount
+    , 'dataSets':dataSets, 'setsCount':setsCount
+
     }
     return render(request, 'loads/allFiles.html', context)
 
@@ -159,7 +242,6 @@ def searchFiles(request):
         files = LoadFiles.objects.filter(territory='Barrio')
     
     fileCount = files.count()
-
    
     context={"title": "Search Files", "banner":"Search Files in DataBase", 'files':files, 'fileCount':fileCount, 'system':system}
     return render(request, 'loads/searchFiles.html', context)

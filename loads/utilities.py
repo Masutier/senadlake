@@ -1,3 +1,29 @@
+import os
+from django.conf import settings
+
+
+def createFolder(filepath):
+    os.makedirs(filepath)
+    endDir = filepath
+    return endDir
+
+
+def newFolder(filepath):
+    if filepath:
+        folderExist = os.path.isdir(filepath)
+        if not folderExist:
+            endDir = createFolder(filepath)
+        else:
+            endDir = filepath
+    else:
+        folderExist = os.path.isdir(filepath)
+        if not folderExist:
+            endDir = createFolder(filepath)
+        else:
+            endDir = filepath
+
+    return endDir
+
 
 def fileList(fileslist):
     filesNames = []

@@ -10,33 +10,6 @@
     <div class="col-12 mx-auto">
         <div class="row">
             <div class="col-3 mx-auto px-5 atxt0">
-                <h3 class="mb-2 atxt1d">Total {{ total }} Files</h3>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">file</th>
-                            <th scope="col">Qty</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">.csv</th>
-                            <td>{{ csvcount }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">.json</th>
-                            <td>{{ jsoncount }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">.xlsx</th>
-                            <td>{{ xlsxcount }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">.pdf</th>
-                            <td>{{ pdfcount }}</td>
-                        </tr>
-                    </tbody>
-                </table>
 
                 <div class="col-12 ">
                     {% include 'loads/partials/sideMenu.html' %}
@@ -45,30 +18,48 @@
             </div>
 
             <div class="col-9 mx-auto ">
+                <form action="csvCall" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-                {% if csvFiles %}
-                    <h2 class="atxt1b">CSV Files</h2>
-                    {% for item in csvFiles %}
+                {% if allFiles %}
+                <div class="col-11 row align-items-center">
+                    <div class="col-5 mx-auto">
+                        <h2 class="atxt1b">Files</h2>
+                    </div>
+                    <div class="col-5 mx-auto">
+                        <h5 class="text-center atxt1c">Total Archivos = {{ allcount }}</h5>
+                    </div>
+                </div>
+                    
+                    {% for item in allFiles %}
                         <div class="card mb-3 formsback">
 
                             <div class="card-header">
                                 <div class="row">
-                                    <div class="col-8">
-                                        {{item.file_ext}}
-                                    </div>
-
-                                    <div class="col-4">
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">csv</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">xlsx</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">json</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">pdf</a>
-                                    </div>
+                                    {% if item.data_set == 1 %}
+                                        <div class="col-8">
+                                            Data_Set
+                                        </div>
+                                        <div class="col-4">
+                                            <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'setDetail' item.id %}" value="{{ item.id }}">DataSet Info</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-8">
+                                            Single File
+                                        </div>
+                                        <div class="col-4">
+                                            <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'csvCall' item.id %}" value="{{ item.id }}">csv</a>
+                                            <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'xlsxCall' item.id %}" value="{{ item.id }}">xlsx</a>
+                                            <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'jsonCall' item.id %}" value="{{ item.id }}">json</a>
+                                            <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'pdfCall' item.id %}" value="{{ item.id }}">pdf</a>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
 
                             <div class="card-body">
                                 <div class="col-9">
-                                    <h5 class="card-title">{{item.file}}</h5>
+                                    <h5 class="card-title atxt1d">{{item.jsonFile}}</h5>
                                 </div>
 
                                 <h5 class="card-text">{{item.description}}</h5>
@@ -87,134 +78,9 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-
-                {% if jsonFiles %}
-                    <h2 class="atxt1b">JSON Files</h2>
-                    {% for item in jsonFiles %}
-                        <div class="card mb-3 formsback">
-
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-8">
-                                        {{item.file_ext}}
-                                    </div>
-                                    
-                                    <div class="col-4">
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">csv</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">xlsx</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">json</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">pdf</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="col-9">
-                                    <h5 class="card-title">{{item.file}}</h5>
-                                </div>
- 
-                                <h5 class="card-text">{{item.description}}</h5>
-
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                
-                {% if xlsxFiles %}
-                    <h2 class="atxt1b">XLSX Files</h2>
-                    {% for item in xlsxFiles %}
-                        <div class="card mb-3 formsback">
-                            
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-8">
-                                        {{item.file_ext}}
-                                    </div>
-                                    
-                                    <div class="col-4">
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">csv</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">xlsx</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">json</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">pdf</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="col-9">
-                                    <h5 class="card-title">{{item.file}}</h5>
-                                </div>
- 
-                                <h5 class="card-text">{{item.description}}</h5>
-
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                
-                {% if pdfFiles %}
-                    <h2 class="atxt1b">PDF Files</h2>
-                    {% for item in pdfFiles %}
-                        <div class="card mb-3 formsback">
-                                
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-8">
-                                        {{item.file_ext}}
-                                    </div>
-                                    
-                                    <div class="col-4">
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">csv</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">xlsx</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">json</a>
-                                        <a class="badge rounded-pill text-bg-dark abak2 alink" href="{{ item.file.id }}">pdf</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="col-9">
-                                    <h5 class="card-title">{{item.file}}</h5>
-                                </div>
-
-                                <h5 class="card-text">{{item.description}}</h5>
-
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p class="card-text"><small class="text-body-secondary">Uploaded - {{item.uploaded_at}}</small></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <p class="card-text"><small class="text-body-secondary">Updated - {{item.updated}}</small></p>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-
+                </form>
             </div>
+            
             
         </div>
     </div>

@@ -1,0 +1,37 @@
+.section1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #111;
+
+}
+.containt {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containt p1 {
+    position: absolute;
+    color: #fff;
+    font-size: 2.5em;
+    font-family: 'Times New Roman', Times, serif;
+    top: -200px;
+    letter-spacing: 0.4em;
+}
+.containt p2 {
+    position: absolute;
+    color: #fff;
+    font-size: 4em;
+    font-family: 'Times New Roman', Times, serif;
+    top: -100px;
+    letter-spacing: 0.5em;
+}
+
+
+
+
+

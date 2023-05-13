@@ -18,7 +18,7 @@
                 <div class="col-11 mx-auto mb-3">
                     <div class="mb-3">
                         <label for="inputfile" class="form-label atxt2">Input File to Proccess</label>
-                        <input class="form-control" type="file" name="file">
+                        <input class="form-control" type="file" name="inputFile">
                     </div>
 
                     <div class="mb-3">
@@ -30,17 +30,29 @@
                 <div class="col-11 mx-auto mb-3">
                     <div class="row">
                         <div class="col-6">
-                            <label for="FormControl5" class="form-label atxt2">Autoridad</label>
-                            <select class="form-select" name="autority" id="FormControl5" aria-label="form-select">
-                                <option class="atxt2" value="Oficial">Oficial</option>
-                                <option class="atxt2" value="Comunidad">Comunidad</option>
-                                <option class="atxt2" value="Privado">Privado</option>
+                            <label for="quality" class="form-label atxt2">Quality</label>
+                            <select class="form-select" name="quality" id="quality" aria-label="form-select">
+                                <option class="atxt2" value="Abiertos">Abiertos</option>
+                                <option class="atxt2" value="Privados">Privados</option>
+                                <option class="atxt2" value="Clasificados">Clasificados</option>
                             </select>
                         </div>
 
                         <div class="col-6">
-                            <label for="FormControl5" class="form-label atxt2">Category</label>
-                            <select class="form-select" name="category" id="FormControl5" aria-label="form-select">
+                            <label for="autority" class="form-label atxt2">Autoridad</label>
+                            <select class="form-select" name="autority" id="autority" aria-label="form-select">
+                                <option class="atxt2" value="Oficial">Oficial</option>
+                                <option class="atxt2" value="Publico">Publico</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-11 mx-auto mb-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="category" class="form-label atxt2">Category</label>
+                            <select class="form-select" name="category" id="category" aria-label="form-select">
                                 <option class="atxt2" value="Ciencia">Ciencia</option>
                                 <option class="atxt2" value="Comercio">Comercio</option>
                                 <option class="atxt2" value="Cultura">Cultura</option>
@@ -48,20 +60,18 @@
                                 <option class="atxt2" value="Medicina">Medicina</option>
                             </select>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-11 mx-auto mb-3">
-                    <div class="col-6">
-                        <label for="FormControl5" class="form-label atxt2">Territory</label>
-                        <select class="form-select" name="territory" id="FormControl5" aria-label="form-select">
-                            <option class="atxt2" value="Nacional">Nacional</option>
-                            <option class="atxt2" value="Departamento">Departamento</option>
-                            <option class="atxt2" value="Municipio">Municipio</option>
-                            <option class="atxt2" value="Pueblo">Pueblo</option>
-                            <option class="atxt2" value="Zona">Zona</option>
-                            <option class="atxt2" value="Barrio">Barrio</option>
-                        </select>
+                        <div class="col-6">
+                            <label for="territory" class="form-label atxt2">Territory</label>
+                            <select class="form-select" name="territory" id="territory" aria-label="form-select">
+                                <option class="atxt2" value="Nacional">Nacional</option>
+                                <option class="atxt2" value="Departamento">Departamento</option>
+                                <option class="atxt2" value="Municipio">Municipio</option>
+                                <option class="atxt2" value="Pueblo">Pueblo</option>
+                                <option class="atxt2" value="Zona">Zona</option>
+                                <option class="atxt2" value="Barrio">Barrio</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 

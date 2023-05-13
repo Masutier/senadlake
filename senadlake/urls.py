@@ -19,6 +19,7 @@ urlpatterns = [
 
     path('privacy', privacy, name='privacy'),
     # path('page401', page401, name='page401'),
+    path('page501', page501, name='page501'),
 
 ]
 
