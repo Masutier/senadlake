@@ -2,6 +2,7 @@ import os
 import json
 from django.conf import settings
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from .models import LoadFiles
 from .forms import loadFileForm
@@ -175,9 +176,25 @@ def allFiles(request):
 
     allcount = allFiles.count()
 
+    # pagination
+    paginator = Paginator(allFiles, 5)
+    page = request.GET.get('page1')
+    try:
+        allFiles = paginator.page(page)
+    except PageNotAnInteger:
+        allFiles = paginator.page(1)
+    except EmptyPage:
+        allFiles = paginator.page(paginator.num_pages)
+    index1 = allFiles.number - 1
+    max_index1 = len(paginator.page_range)
+    start_index1 = index1 - 3 if index1 >= 3 else 0
+    end_index1 = index1 + 3 if index1 <= max_index1 else max_index1
+    page_range1 = paginator.page_range[start_index1:end_index1]
+    
     context={"title": "All Files", "banner":"Files in DataBase"
     , 'allFiles':allFiles, 'allcount':allcount
     , 'dataSets':dataSets, 'setsCount':setsCount
+    , 'page_range1': page_range1
 
     }
     return render(request, 'loads/allFiles.html', context)

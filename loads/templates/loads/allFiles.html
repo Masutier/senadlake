@@ -80,6 +80,12 @@
                 {% endif %}
                 </form>
             </div>
+
+            <div class="col-md-8 mx-auto mt-5">
+                {% if allcount > 5 %}
+                    {% include 'loads/partials/pagination.html' %}
+                {% endif %}
+            </div>
             
             
         </div>
