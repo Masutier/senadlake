@@ -24,7 +24,6 @@ class LoadFiles(models.Model):
         ('Nacional', 'Nacional'),
         ('Departamento', 'Departamento'),
         ('Municipio', 'Municipio'),
-        ('Pueblo', 'Pueblo'),
         ('Zona', 'Zona'),
         ('Barrio', 'Barrio'),
     )
