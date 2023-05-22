@@ -9,13 +9,17 @@ urlpatterns = [
     path('setFiles', setFiles, name='setFiles'),
     path('xlsAllFiles', xlsAllFiles, name="xlsAllFiles"),
 
+    path('dataSetDetail/<pk>', dataSetDetail, name='dataSetDetail'),
+
     path('searchFiles/', searchFiles, name='searchFiles'),
 
-    path('setDetail/<pk>', setDetail, name='setDetail'),
+    
 
     path('csvCall/<pk>', csvCall, name='csvCall'),
     path('xlsxCall/<pk>', xlsxCall, name='xlsxCall'),
     path('jsonCall/<pk>', jsonCall, name='jsonCall'),
     path('pdfCall/<pk>', pdfCall, name='pdfCall'),
+
+    path('dscsvOut/<pk>', dscsvOut, name='dscsvOut'),
 
 ]

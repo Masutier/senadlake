@@ -15,12 +15,6 @@ def newFolder(filepath):
             endDir = createFolder(filepath)
         else:
             endDir = filepath
-    else:
-        folderExist = os.path.isdir(filepath)
-        if not folderExist:
-            endDir = createFolder(filepath)
-        else:
-            endDir = filepath
 
     return endDir
 
@@ -34,6 +28,18 @@ def fileList(fileslist):
         filesNames.append(fname[0])
 
     return filesNames
+
+
+def cleanTypes():
+    df.columns = [x.upper().replace(" ","_").replace("-","_").replace("$","").replace("?","").replace("%","").replace(".","") \
+            .replace("Á","A").replace("É","E").replace("Í","I").replace("Ó","O").replace("Ú","Ú")
+            .replace("@","").replace("#","").replace(r"/","").replace("\\","").replace(r"(","")
+            .replace(")","") for x in df.columns]
+
+    return   
+
+
+
 
 
 def singleList(csvFiles, jsonFiles, xlsxFiles, pdfFiles):

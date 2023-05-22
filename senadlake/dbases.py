@@ -1,5 +1,8 @@
 import os
+import json
+from .confSett import securFileHome, securFileSena
 
+config = securFileHome()
 
 def extensions():
     validExt = ['csv', 'json', 'xlsx', 'pdf', 'html', 'xml', 'sql', 'db', 'py', 'css', 'js']
@@ -21,12 +24,12 @@ def dbSqlite(BASE_DIR):
 def dbmariadb(BASE_DIR):
     DATABASES = {
 	'default': {
-	    'ENGINE': 'django.db.backends.mariadbase', 
-	    'NAME': 'default_schema',
-	    'USER': 'root',
-	    'PASSWORD': 'test#$!',
-	    'HOST': 'db',
-	    'PORT': '3336',
+	    'ENGINE': 'django.db.backends.mysql', 
+	    'NAME': 'senadlake',
+	    'USER': config["MARIADB_USER"],
+	    'PASSWORD': config["MARIADB_PASSWORD"],
+	    'HOST': '127.0.0.1',
+	    'PORT': int(config["MARIADB_PORT"]),
 	}
     }
     

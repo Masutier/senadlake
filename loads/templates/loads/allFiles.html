@@ -41,7 +41,7 @@
                                             Data_Set
                                         </div>
                                         <div class="col-4">
-                                            <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'setDetail' item.id %}" value="{{ item.id }}">DataSet Info</a>
+                                            <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'dataSetDetail' item.id %}" value="{{ item.id }}">DataSet Info</a>
                                         </div>
                                     {% else %}
                                         <div class="col-8">
@@ -58,9 +58,15 @@
                             </div>
 
                             <div class="card-body">
+                                {% if item.data_set == 1 %}
+                                <div class="col-9">
+                                    <h5 class="card-title atxt1d">{{item.set_name}}</h5>
+                                </div>
+                                {% else %}
                                 <div class="col-9">
                                     <h5 class="card-title atxt1d">{{item.jsonFile}}</h5>
                                 </div>
+                                {% endif %}
 
                                 <h5 class="card-text">{{item.description}}</h5>
                                 

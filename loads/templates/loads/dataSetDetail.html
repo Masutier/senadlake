@@ -1,0 +1,205 @@
+{% extends 'senadlake/layout.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{% include 'senadlake/partials/banner.html' %}
+
+<div class="col-md-12 mx-auto bodyx p-5">
+    <div class="col-12 mx-auto">
+        <div class="row">
+            <div class="col-3 mx-auto px-5 atxt0">
+                <div class="col-12 ">
+                    {% include 'loads/partials/sideMenu.html' %}
+                </div>
+            </div>
+
+            <div class="col-9 mx-auto ">
+
+                <div class="col-11 row align-items-center">
+                    <div class="col-5 mx-auto">
+                        <h2 class="atxt1b">{{fileData.set_name}}</h2>
+                    </div>
+
+                </div>
+                
+                <div class="card mb-3 formsback">
+                    <div class="card-body">
+
+                        <div class="col-12 mx-auto ">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5>Sheets in original file</h5>
+                                    {% for column in fileData.sheet_set %}
+                                    <ul>
+                                        <li>
+                                            {{column}}
+                                        </li>
+                                    </ul>
+                                    
+                                    {% endfor %}
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="col-12 mx-auto">
+                                        <h5>File Name</h5>
+                                        {{fileData.set_name}}
+                                    </div>
+                                    <div class="col-12 mx-auto">
+                                        <h5>Company Origen Name</h5>
+                                        {{fileData.entity}}
+                                    </div>
+                                    <div class="col-12 mx-auto">
+                                        <h5>Data State</h5>
+                                        {{fileData.zonas}}
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="col-12 mx-auto">
+                                        <h5>Data Sensity</h5>
+                                        {{fileData.quality}}
+                                    </div>
+                                    <div class="col-12 mx-auto">
+                                        <h5>Access to Data</h5>
+                                        {{fileData.autority}}
+                                    </div>
+                                    <div class="col-12 mx-auto">
+                                        <h5>Category</h5>
+                                        {{fileData.category}}
+                                    </div>
+                                    <div class="col-12 mx-auto">
+                                        <h5>Coverage</h5>
+                                        {{fileData.territory}}
+                                    </div>
+                                    <div class="col-12 mx-auto">
+                                        <h5>Number of Downloads</h5>
+                                        {{fileData.downloads}}
+                                    </div>
+                                    <div class="col-12 mx-auto">
+                                        <h5>Number of Views</h5>
+                                        {{fileData.views}}
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-12 mt-5">
+                            <h5 class="card-text">Data Description</h5>
+                            <p>{{fileData.description}}</p>
+                        </div>
+
+                        
+                        <div class="col-12 mt-5">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>Data Uploaded</h6>
+                                    <p class="card-text"><small class="text-body-secondary">{{fileData.uploaded_at}}</small></p>
+                                </div>
+                                <div class="col-4">
+                                    <h6>Last Updated</h6>
+                                    <p class="card-text"><small class="text-body-secondary">{{fileData.updated}}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% for sheet in sheets_set %}
+                <div class="card mb-3 formsback">
+
+                    <div class="card-header">
+                        <div class="row">
+
+                                <div class="col-8">
+                                    Sheet in DataSet {{fileData.set_name}}
+                                </div>
+                                <div class="col-4">
+                                    <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'dscsvOut' sheet.id %}" value="{{ sheet.id }}">csv</a>
+                                    <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'xlsxCall' sheet.id %}" value="{{ sheet.id }}">xlsx</a>
+                                    <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'jsonCall' sheet.id %}" value="{{ sheet.id }}">json</a>
+                                    <a class="badge rounded-pill text-bg-dark abak2 alink" name="csv" href="{% url 'pdfCall' sheet.id %}" value="{{ sheet.id }}">pdf</a>
+                                </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-12 mx-auto mb-4">
+                            <div class="col-12 mx-auto">
+                                <h5>Sheet Name - {{sheet.sheet_name}}</h5>
+                            </div>
+                            <div class="col-12 mx-auto">
+                                <h5>File Location</h5>
+                                {{sheet.sheet_link}}
+                            </div>
+
+                        </div>
+                        
+
+                        <div class="col-12 mx-auto ">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="col-12 mx-auto mb-2">
+                                        <h5>File Id</h5>
+                                        {{sheet.id}}
+                                    </div>
+                                    <div class="col-12 mx-auto mb-2">
+                                        <h5>Sheet Name</h5>
+                                        {{sheet.sheet_name}}
+                                    </div>
+                                    <div class="col-12 mx-auto mb-2">
+                                        <h6>Data Uploaded</h6>
+                                        <p class="card-text"><small class="text-body-secondary">{{sheet.uploaded_at}}</small></p>
+                                    </div>
+                                    <div class="col-12 mx-auto mb-2">
+                                        <h6>Last Updated</h6>
+                                        <p class="card-text"><small class="text-body-secondary">{{sheet.updated}}</small></p>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="col-12 mx-auto mb-2">
+                                        <h5>Number of Columns</h5>
+                                        {{sheet.sheet_numcols}}
+                                    </div>
+                                    <div class="col-12 mx-auto mb-2">
+                                        <h5>Number of Rows</h5>
+                                        {{sheet.sheet_numrows}}
+                                    </div>
+                                    <div class="col-12 mx-auto mb-2">
+                                        <h5>Part of DataSet Name</h5>
+                                        {{sheet.data_set}}
+                                    </div>
+                                </div>
+
+                                <div class="col-4 mb-4">
+                                    <div class="col-12 mx-auto">
+                                        <h5>Column Names</h5>
+                                        <ul>
+                                            {% for column in sheet.sheet_columns %}
+                                            <li>
+                                                {{column}}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

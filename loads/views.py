@@ -1,44 +1,55 @@
 import os
 import json
+import openpyxl
+import re
+import pandas as pd
+from datetime import date
 from django.conf import settings
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
-from .models import LoadFiles
-from .forms import loadFileForm
+from .models import LoadFiles, DataSet, SheetFile
+from .forms import loadFileForm, DataSetForm, SheetFileForm
 from .utilities import fileList, singleList, newFolder
 from senadlake.dbases import extensions
-import pandas as pd
 
-
+today = date.today()
 validExt, validExtPro = extensions()
 origen_path = "/home/gabriel/Downloads/"
-filepath = os.path.join(settings.BASE_DIR, "FILES/json/")
+filepath = os.path.join(settings.BASE_DIR, "FILES/Raw/")
 
 
 def loadFile(request):
     if request.method == 'POST':
         form = loadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            endDir = newFolder(filepath)
             pform = form.save(commit=False)
             inputFile = request.FILES['inputFile']
             namefile = inputFile.name
             filenamex = namefile.split('.')
 
+            entity = request.POST['entity']
+            description = request.POST['description']
+            quality = request.POST['quality']
+            autority = request.POST['autority']
+            category = request.POST['category']
+            territory = request.POST['territory']
+
+            date_now = today.strftime("%Y_%B_%d")
+
             if filenamex[-1] == 'csv':
                 df = pd.read_csv(inputFile, low_memory=False)
+                lastFilepath = filepath + "/" + quality + "/" +  entity + "/" +  date_now + "/"
+                endDir = newFolder(lastFilepath)
                 jsonFile = df.to_json(endDir + filenamex[0] + ".json.gz", indent=4, orient='records', compression='gzip', force_ascii=False)
-
-                pdcolumns = df.columns.tolist()
                 pform.jsonFile = namefile
-                pform.file_link = endDir + filenamex[0] + ".json.gz"
                 pform.file_ext = filenamex[-1]
                 pform.file_name = namefile
-                pform.file_columns = pdcolumns
                 pform.file_numcols = df.shape[1] #- To count columns
                 pform.file_numrows = df.shape[0] #- To count rows
                 pform.data_set = False
+                pform.file_link = endDir + filenamex[0] + ".json.gz"
+                pform.file_columns = df.columns.tolist()
                 pform.save()
                 messages.success(request, "The file was saved successfully")
 
@@ -46,54 +57,85 @@ def loadFile(request):
 
             elif filenamex[-1] == 'xlsx':
                 df = pd.ExcelFile(inputFile)
+                filesSaved = []
+                count = 0
+
+                dsetform = DataSetForm()
+                dsetform = dsetform.save(commit=False)
+                sheetform = SheetFileForm()
+                sheetform = sheetform.save(commit=False)
 
                 if len(df.sheet_names) > 1:
-                    sheets = []
+                    lastFilepath = filepath + "/" + quality + "/" +  entity + "/" +  date_now + "/" + filenamex[0] + "/"
+                    endDir = newFolder(lastFilepath)
+                    dsetform.set_name = namefile
+                    dsetform.data_set = True
+                    dsetform.sheet_set = df.sheet_names
+                    dsetform.description = description
+                    dsetform.entity = entity
+                    dsetform.zonas = "Raw"
+                    dsetform.quality = request.POST['quality']
+                    dsetform.autority = autority
+                    dsetform.category = category
+                    dsetform.territory = territory
+                    dsetform.save()
 
                     for sheet in df.sheet_names:
                         fullSheet = pd.read_excel(inputFile, sheet_name=sheet)
-                        jsonOutput_gz = filepath + filenamex[0] + "_" + sheet + ".json" + ".gz"
+                        jsonOutput_gz = endDir + filenamex[0] + "_" + sheet + ".json" + ".gz"
                         output = fullSheet.to_json(jsonOutput_gz, indent=4, orient='records', compression='gzip', force_ascii=False)
-                        sheets.append(sheet)
+                        filesSaved.append(jsonOutput_gz)
 
-                    pdcolumns = fullSheet.columns.tolist()
-                    pform.jsonFile = namefile
-                    pform.file_link = filepath + filenamex[0] + "_<sheet>.json.gz"
-                    pform.file_ext = filenamex[-1]
-                    pform.file_name = namefile
-                    pform.file_columns = pdcolumns
-                    pform.file_numcols = fullSheet.shape[1] #- To count columns
-                    pform.file_numrows = fullSheet.shape[0] #- To count rows
-                    pform.data_set = True
-                    pform.sheet_set = sheets
-                    pform.save()
+                    for filesave in filesSaved:
+                        cleanString = ""
+                        count = count + 1
+                        json_data = open(filesave) 
+                        jsonFile = pd.read_json(filesave)
+                        filenamex = filesave.split('.')
+                        filenamey = filenamex[-3].split('/')
+                        field = filenamey[-1] + str(count)
+                        cleanString = re.sub('\W+','_', field )
+                        sheetform.id = cleanString
+                        sheetform.sheet_id = count
+                        sheetform.sheet_link = filesave
+                        sheetform.sheet_name = filenamey[-1]
+                        sheetform.main_file = namefile
+                        sheetform.sheet_columns = jsonFile.columns.tolist() # List columns names
+                        sheetform.sheet_numrows = jsonFile.shape[0] #- count rows
+                        sheetform.sheet_numcols = jsonFile.shape[1] #- count columns
+                        sheetform.data_set = True
+                        sheetform.entity = entity # Company name
+                        sheetform.zonas = "Raw"
+                        sheetform.save()
 
+                    messages.success(request, "The dataset was saved successfully")
                     return redirect("allFiles")
-                else:
-                    sheet = str(df.sheet_names)
-                    df = pd.read_excel(inputFile)
-                    jsonOutput_gz = filepath + filenamex[0] + "_" + sheet + ".json" + ".gz"
-                    output = df.to_json(jsonOutput_gz, indent=4, orient='records', compression='gzip', force_ascii=False)
 
-                    pdcolumns = df.columns.tolist()
+                else:
+                    lastFilepath = filepath + "/" + quality + "/" +  entity + "/" +  date_now + "/"
+                    endDir = newFolder(lastFilepath)
+                    sheet = df.sheet_names
+                    df = pd.read_excel(inputFile)
+                    jsonOutput_gz = endDir + filenamex[0] + "_" + str(sheet[0]) + ".json" + ".gz"
+                    output = df.to_json(jsonOutput_gz, indent=4, orient='records', compression='gzip', force_ascii=False)
                     pform.jsonFile = namefile
-                    pform.file_link = filepath + filenamex[0] + "_" + sheet + ".json.gz"
                     pform.file_ext = filenamex[-1]
                     pform.file_name = namefile
-                    pform.file_columns = pdcolumns
                     pform.file_numcols = df.shape[1] #- To count columns
                     pform.file_numrows = df.shape[0] #- To count rows
                     pform.data_set = False
+                    pform.file_link = endDir + filenamex[0] + "_" + str(sheet)  + ".json.gz"
+                    pform.file_columns = df.columns.tolist()
                     pform.save()
                     messages.success(request, "The file was saved successfully")
-
                     return redirect("allFiles")
+
             else:
                 extMess = "The file has not a valid extension. Please, verify name and extension and try again."
                 messages.warning(request, "The file was NOT saved ** WARNING ** " + extMess)
                 return redirect("home")
         else:
-            messages.error(request + "Something went wrong. " + form.errors)
+            messages.error(request, form.errors)
             return redirect("home")
     else:
         form = loadFileForm()
@@ -126,17 +168,21 @@ def xlsAllFiles(request):
     return render(request, 'xls_all/xlsLoad.html', context)
 
 
-def setDetail(request, pk):
-    detailIn = LoadFiles.objects.get(id=pk)
+def dataSetDetail(request, pk):
+    fileData = DataSet.objects.get(id=pk)
+    name = fileData.set_name
+    sheets_set = SheetFile.objects.filter(main_file=name)
 
-    context={"title": "Detalle", "banner":"Pagina en Construccion"}
-    return render(request, 'senadlake/errors/404.html', context)
+    context={"title": "Detalle", "banner":"DataSet Detail", 'fileData':fileData, 'sheets_set':sheets_set}
+    return render(request, 'loads/dataSetDetail.html', context)
 
 
 def csvCall(request, pk):
     fileIn = LoadFiles.objects.get(id=pk)
     nameff = fileIn.file_name.split('.')
     nameOut = nameff[0]
+
+    print(fileIn.file_link)
 
     data = pd.read_json(fileIn.file_link)
     csvout = data.to_csv(nameOut + ".csv", sep=';', encoding='utf-8')
@@ -165,16 +211,17 @@ def pdfCall(request, pk):
 
 
 def allFiles(request):
-    dataSets = []
-    setsCount = 0
+    allFiles = []
+    allcsv = LoadFiles.objects.all()
+    allxls = DataSet.objects.all()
 
-    allFiles = LoadFiles.objects.all()
-    dataSests = LoadFiles.objects.filter(data_set=1)
+    for all in allcsv:
+        allFiles.append(all)
 
-    for sets in dataSests:
-        setsCount += 1
+    for all in allxls:
+        allFiles.append(all)
 
-    allcount = allFiles.count()
+    allcount = allcsv.count() + allxls.count()
 
     # pagination
     paginator = Paginator(allFiles, 5)
@@ -193,11 +240,20 @@ def allFiles(request):
     
     context={"title": "All Files", "banner":"Files in DataBase"
     , 'allFiles':allFiles, 'allcount':allcount
-    , 'dataSets':dataSets, 'setsCount':setsCount
     , 'page_range1': page_range1
 
     }
     return render(request, 'loads/allFiles.html', context)
+
+
+def dscsvOut(request, pk):
+    sheet_set = SheetFile.objects.filter(id=pk)
+
+    for sheet in sheet_set:
+        data = pd.read_json(sheet.sheet_link)
+        csvout = data.to_csv(sheet.sheet_name + ".csv", sep=';', encoding='utf-8')
+
+    return redirect('home')
 
 
 def setFiles(request):
@@ -218,47 +274,56 @@ def setFiles(request):
 def searchFiles(request):
     system = request.POST.get('system', None)
 
-    if system == "csv":
-        files = LoadFiles.objects.filter(file_ext='csv')
-    elif system == "json":
-        files = LoadFiles.objects.filter(file_ext='json')
-    elif system == "xlsx":
-        files = LoadFiles.objects.filter(file_ext='xlsx')
-    elif system == "pdf":
-        files = LoadFiles.objects.filter(file_ext='pdf')
+    if system == "Abiertos":
+        allFiles = LoadFiles.objects.filter(quality='Abiertos')
+    elif system == "Privados":
+        allFiles = LoadFiles.objects.filter(quality='Privados')
+    elif system == "Clasificados":
+        allFiles = LoadFiles.objects.filter(quality='Clasificados')
 
     elif system == "Oficial":
-        files = LoadFiles.objects.filter(autority='Oficial')
-    elif system == "Comunidad":
-        files = LoadFiles.objects.filter(autority='Comunidad')
-    elif system == "Privado":
-        files = LoadFiles.objects.filter(autority='Privado')
+        allFiles = LoadFiles.objects.filter(autority='Oficial')
+    elif system == "Publico":
+        allFiles = LoadFiles.objects.filter(autority='Publico')
 
     elif system == "Ciencia":
-        files = LoadFiles.objects.filter(category='Ciencia')
+        allFiles = LoadFiles.objects.filter(category='Ciencia')
     elif system == "Comercio":
-        files = LoadFiles.objects.filter(category='Comercio')
+        allFiles = LoadFiles.objects.filter(category='Comercio')
     elif system == "Cultura":
-        files = LoadFiles.objects.filter(category='Cultura')
+        allFiles = LoadFiles.objects.filter(category='Cultura')
     elif system == "Educacion":
-        files = LoadFiles.objects.filter(category='Educacion')
+        allFiles = LoadFiles.objects.filter(category='Educacion')
     elif system == "Medicina":
-        files = LoadFiles.objects.filter(category='Medicina')
+        allFiles = LoadFiles.objects.filter(category='Medicina')
 
     elif system == "Nacional":
-        files = LoadFiles.objects.filter(territory='Nacional')
-    elif system == "Departamento":
-        files = LoadFiles.objects.filter(territory='Departamento')
-    elif system == "Municipio":
-        files = LoadFiles.objects.filter(territory='Municipio')
-    elif system == "Pueblo":
-        files = LoadFiles.objects.filter(territory='Pueblo')
-    elif system == "Zona":
-        files = LoadFiles.objects.filter(territory='Zona')
+        allFiles = LoadFiles.objects.filter(territory='Nacional')
+    elif system == "Departamental":
+        allFiles = LoadFiles.objects.filter(territory='Departamento')
+    elif system == "Municipal":
+        allFiles = LoadFiles.objects.filter(territory='Municipio')
+    elif system == "Zonal":
+        allFiles = LoadFiles.objects.filter(territory='Zonal')
     elif system == "Barrio":
-        files = LoadFiles.objects.filter(territory='Barrio')
+        allFiles = LoadFiles.objects.filter(territory='Barrio')
     
-    fileCount = files.count()
-   
-    context={"title": "Search Files", "banner":"Search Files in DataBase", 'files':files, 'fileCount':fileCount, 'system':system}
+    allcount = allFiles.count()
+    # see error -- https://stackoverflow.com/questions/30384458/django-pagination-local-variable-referenced-before-assignment
+    # pagination
+    paginator = Paginator(allFiles, 5)
+    page = request.GET.get('page1')
+    try:
+        allFiles = paginator.page(page)
+    except PageNotAnInteger:
+        allFiles = paginator.page(1)
+    except EmptyPage:
+        allFiles = paginator.page(paginator.num_pages)
+    index1 = allFiles.number - 1
+    max_index1 = len(paginator.page_range)
+    start_index1 = index1 - 3 if index1 >= 3 else 0
+    end_index1 = index1 + 3 if index1 <= max_index1 else max_index1
+    page_range1 = paginator.page_range[start_index1:end_index1]
+
+    context={"title": "Search Files", "banner":"Search Files in DataBase", 'allFiles':allFiles, 'allcount':allcount, 'page_range1':page_range1}
     return render(request, 'loads/searchFiles.html', context)

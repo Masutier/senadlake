@@ -1,7 +1,7 @@
 import os
 import json
 from pathlib import Path
-from .dbases import dbSqlite
+from .dbases import dbSqlite, dbmariadb
 from .confSett import localSett, prodSett, securFileHome, securFileSena
 
 SENA = False
@@ -52,7 +52,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'senadlake.wsgi.application'
 
-DATABASES = dbSqlite(BASE_DIR)
+DATABASES = dbmariadb(BASE_DIR)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
