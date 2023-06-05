@@ -52,7 +52,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'senadlake.wsgi.application'
 
-DATABASES = dbmariadb(BASE_DIR)
+DATABASES = dbSqlite(BASE_DIR)
+#DATABASES = dbmariadb(BASE_DIR)
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -28,7 +28,7 @@ def dbmariadb(BASE_DIR):
 	    'NAME': 'senadlake',
 	    'USER': config["MARIADB_USER"],
 	    'PASSWORD': config["MARIADB_PASSWORD"],
-	    'HOST': '127.0.0.1',
+	    'HOST': 'localhost',
 	    'PORT': int(config["MARIADB_PORT"]),
 	}
     }
