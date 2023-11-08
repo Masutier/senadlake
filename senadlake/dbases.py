@@ -23,14 +23,14 @@ def dbSqlite(BASE_DIR):
 
 def dbmariadb(BASE_DIR):
     DATABASES = {
-	'default': {
-	    'ENGINE': 'django.db.backends.mysql', 
-	    'NAME': 'senadlake',
-	    'USER': config["MARIADB_USER"],
-	    'PASSWORD': config["MARIADB_PASSWORD"],
-	    'HOST': 'localhost',
-	    'PORT': int(config["MARIADB_PORT"]),
-	}
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', 
+            'NAME': 'senadlake',
+            'USER': config["MARIADB_USER"],
+            'PASSWORD': config["MARIADB_PASSWORD"],
+            'HOST': 'localhost',
+            'PORT': int(config["MARIADB_PORT"]),
+        }
     }
     
     return DATABASES
