@@ -2,7 +2,13 @@ import os
 import json
 from .confSett import securFileHome, securFileSena
 
-config = securFileHome()
+SENA = False
+
+if SENA:
+    config = securFileSena()
+else:
+    config = securFileHome()
+
 
 def extensions():
     validExt = ['csv', 'json', 'xlsx', 'pdf', 'html', 'xml', 'sql', 'db', 'py', 'css', 'js']

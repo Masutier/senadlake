@@ -48,6 +48,6 @@ def securFileHome():
     return config
 
 def securFileSena():
-    with open("C:\inetpub\wwwroot\senadlake.json") as config_file:
+    with open("/etc/senadlake.json") as config_file:
         config = json.load(config_file)
     return config

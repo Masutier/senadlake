@@ -238,7 +238,7 @@ def allFiles(request):
     end_index1 = index1 + 3 if index1 <= max_index1 else max_index1
     page_range1 = paginator.page_range[start_index1:end_index1]
     
-    context={"title": "All Files", "banner":"Files in DataBase"
+    context={"title": "All Files", "banner":"DataSets in DataBase"
     , 'allFiles':allFiles, 'allcount':allcount
     , 'page_range1': page_range1
 
@@ -264,7 +264,7 @@ def setFiles(request):
 
     csvSingles, jsonSingles, xlsxSingles, pdfSingles = singleList(csvFiles, jsonFiles, xlsxFiles, pdfFiles)
 
-    context={"title": "DataSets", "banner":"Single Files For DataSets"
+    context={"title": "DataSets", "banner":"Single DataSets"
     , 'csvSingles':csvSingles, 'jsonSingles':jsonSingles
     , 'xlsxSingles':xlsxSingles, 'pdfSingles':pdfSingles
     }
@@ -325,5 +325,5 @@ def searchFiles(request):
     end_index1 = index1 + 3 if index1 <= max_index1 else max_index1
     page_range1 = paginator.page_range[start_index1:end_index1]
 
-    context={"title": "Search Files", "banner":"Search Files in DataBase", 'allFiles':allFiles, 'allcount':allcount, 'page_range1':page_range1}
+    context={"title": "Search Files", "banner":"Search DataSet in DataBase", 'allFiles':allFiles, 'allcount':allcount, 'page_range1':page_range1}
     return render(request, 'loads/searchFiles.html', context)
