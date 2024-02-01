@@ -1,11 +1,12 @@
-maquina 1209694504
+maquina 1209 694 504
 pass P@ssw0rd
 
 ubuntu
 user mongo
 pass Colombia2023.
 
-ip 152.200.185.150
+datalake.datasema.com
+ip 152.200.185.150:8080
 
 
 

@@ -114,9 +114,9 @@ def loadFile(request):
                 else:
                     lastFilepath = filepath + "/" + quality + "/" +  entity + "/" +  date_now + "/"
                     endDir = newFolder(lastFilepath)
-                    sheet = df.sheet_names
+                    sheet = df.sheet_names[0]
                     df = pd.read_excel(inputFile)
-                    jsonOutput_gz = endDir + filenamex[0] + "_" + str(sheet[0]) + ".json" + ".gz"
+                    jsonOutput_gz = endDir + filenamex[0] + "_" + sheet + ".json" + ".gz"
                     output = df.to_json(jsonOutput_gz, indent=4, orient='records', compression='gzip', force_ascii=False)
                     pform.jsonFile = namefile
                     pform.file_ext = filenamex[-1]
@@ -181,8 +181,6 @@ def csvCall(request, pk):
     fileIn = LoadFiles.objects.get(id=pk)
     nameff = fileIn.file_name.split('.')
     nameOut = nameff[0]
-
-    print(fileIn.file_link)
 
     data = pd.read_json(fileIn.file_link)
     csvout = data.to_csv(nameOut + ".csv", sep=';', encoding='utf-8')

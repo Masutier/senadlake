@@ -1,8 +1,12 @@
 venv
 venv/
 
+FILES
+media
+
 loads/__pycache__
 raiting/__pycache__
 senadlake/__pycache__
 users/__pycache__
 
+senadlake.db
